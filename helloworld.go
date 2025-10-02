@@ -86,7 +86,7 @@ func main() {
 	*y1 = 8
 	// var y2 *string
 	// fmt.Println(*y2)
-	// above code demonstrates nil pointer dereference and causes
+	// above code demonstrates nil pointer dereference and causes panic
 	fmt.Println(x1)
 
 }
