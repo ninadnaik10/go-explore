@@ -56,6 +56,7 @@ func Index[T comparable](s []T, x T) int {
 }
 
 func main() {
+	defer fmt.Println("Defer statement")
 	v := Vertex{3, 4}
 
 	/*
@@ -89,7 +90,9 @@ func main() {
 
 	// Index also works on a slice of strings
 	ss := []string{"foo", "bar", "baz"}
-	fmt.Println(Index(ss, "hello"))
+	fmt.Println(ss)
+
+	fmt.Println("Exiting now")
 }
 
 func describe(abser Abser) {
