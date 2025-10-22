@@ -50,5 +50,4 @@ func makeServer(sl *ServerList, wg sync.WaitGroup) {
 	}
 
 	server.ListenAndServe()
-
 }

@@ -49,6 +49,9 @@ func makeLoadBalancer(amount int) {
 
 func makeRequest(lb *LoadBalancer, ep *Endpoints) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
+		for testServer(ep.List[0].String()) {
+			ep.Shuffle()
+		}
 		lb.RevProxy = *httputil.NewSingleHostReverseProxy(ep.List[0])
 		ep.Shuffle()
 		lb.RevProxy.ServeHTTP(w, r)
@@ -59,4 +62,12 @@ func createEndpoint(endpoint string, idx int) *url.URL {
 	link := endpoint + strconv.Itoa(idx)
 	url, _ := url.Parse(link)
 	return url
+}
+
+func testServer(endpoint string) bool {
+	resp, err := http.Get(endpoint)
+	if err != nil || resp.StatusCode != http.StatusOK {
+		return false
+	}
+	return true
 }
